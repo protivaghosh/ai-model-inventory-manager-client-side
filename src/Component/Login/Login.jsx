@@ -1,11 +1,50 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Login = () => {
+const { signIn, setUser, signInWithGoogle, saveUserToMongoDB } = useContext(AuthContext);
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        console.log("✅ Login successful:", user);
+        alert("✅ Login successful!");
+        form.reset();
+      })
+      .catch((err) => {
+        console.error("❌ Login failed:", err.message);
+        alert("❌ " + err.message);
+      });
+  };
+  
+
+  //  Google Sign-In
+  const handleGoogleLogin = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        saveUserToMongoDB(user)
+        console.log("✅ Google sign-in successful:", user);
+        alert("✅ Google sign-in successful!");
+      })
+      .catch((err) => {
+        console.error("❌ Google sign-in failed:", err.message);
+        alert("❌ " + err.message);
+      });
+  };
+
   return (
     <div className='flex justify-center items-center p-6'>
                <div className="relative z-10 w-full max-w-md backdrop-blur-xl bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 border border-white/20 shadow-2xl rounded-2xl p-8 sm:p-10 text-white">
-           <form className="space-y-6">
+           <form onSubmit={handleLogin} className="space-y-6">
              <h2 className="text-3xl font-bold text-center mb-4">Login Now!</h2>
    
              {/* Email Input */}
@@ -47,6 +86,7 @@ const Login = () => {
    
              {/* Google Sign-in */}
              <button
+             onClick={handleGoogleLogin}
                type="button"
                className="flex items-center justify-center gap-3 bg-white text-gray-800 px-5 py-2 rounded-lg w-full font-semibold hover:bg-gray-100 transition-colors cursor-pointer shadow-md"
              >

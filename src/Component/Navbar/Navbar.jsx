@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+
 
 const Navbar = () => {
-  const isLoggedIn = false; // এখন শুধু ডিজাইনের জন্য (পরে auth অনুযায়ী পরিবর্তন হবে)
+  const { user, logOut } = useContext(AuthContext); // 
+
+  const isLoggedIn = !!user; 
 
   const navLinks = (
     <>
@@ -103,10 +107,10 @@ const Navbar = () => {
                 role="button"
                 className="btn btn-ghost btn-circle avatar"
               >
-                <div className="w-10 rounded-full border-2 border-purple-400">
+                <div className="w-14 rounded-full border-2 border-purple-400">
                   <img
                     alt="User Profile"
-                    src="https://i.ibb.co/9yRjFSp/user.png"
+                    src={user.photoURL || "https://i.ibb.co/9yRjFSp/user.png"}
                   />
                 </div>
               </div>
@@ -115,7 +119,8 @@ const Navbar = () => {
                 className="mt-3 z-[1] p-3 shadow menu menu-sm dropdown-content bg-[#1a1035]/90 backdrop-blur-xl rounded-xl w-56 border border-white/20 text-white"
               >
                 <li className="text-center font-semibold border-b border-white/20 pb-2">
-                  <p className="text-sm text-white/70">user@email.com</p>
+                  <p className="text-sm">{user.displayName || "User"}</p>
+                  <p className="text-xs text-white/70">{user.email}</p>
                 </li>
                 <li>
                   <Link to="/purchase">Model Purchase</Link>
@@ -124,7 +129,10 @@ const Navbar = () => {
                   <Link to="/my-models">My Models</Link>
                 </li>
                 <li>
-                  <button className="hover:text-purple-300 transition-colors">
+                  <button
+                    onClick={logOut}
+                    className="hover:text-purple-300 transition-colors w-full text-left"
+                  >
                     Logout
                   </button>
                 </li>
