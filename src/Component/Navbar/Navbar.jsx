@@ -126,7 +126,7 @@ const Navbar = () => {
                   <Link to="">Model Purchase</Link>
                 </li>
                 <li>
-                  <Link to="">My Models</Link>
+                  <Link to="my-models">My Models</Link>
                 </li>
                 <li>
                   <button

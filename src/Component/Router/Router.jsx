@@ -11,6 +11,7 @@ import ErrorElement from '../ErrorElement/ErrorElement';
 import DetailsModel from '../Page/DetailsModel/DetailsModel';
 import AddModel from '../Page/AddModel/AddModel';
 import UpdateModel from '../Page/UpdateModel/UpdateModel';
+import MyModel from '../Page/Mymodel/MyModel';
 
 const Router = createBrowserRouter([
   {
@@ -39,6 +40,12 @@ const Router = createBrowserRouter([
            element:(<PrivateRoute>
             <UpdateModel></UpdateModel>
            </PrivateRoute>)
+        },
+        {
+        path: '/my-models',
+        element:(<PrivateRoute>
+          <MyModel></MyModel>
+        </PrivateRoute>)
         },
         {
           path: '/login',
