@@ -10,6 +10,7 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import ErrorElement from '../ErrorElement/ErrorElement';
 import DetailsModel from '../Page/DetailsModel/DetailsModel';
 import AddModel from '../Page/AddModel/AddModel';
+import UpdateModel from '../Page/UpdateModel/UpdateModel';
 
 const Router = createBrowserRouter([
   {
@@ -32,6 +33,12 @@ const Router = createBrowserRouter([
           element: (<PrivateRoute>
             <DetailsModel></DetailsModel>
           </PrivateRoute>),
+        },
+        {
+           path:'/update-model/:id',
+           element:(<PrivateRoute>
+            <UpdateModel></UpdateModel>
+           </PrivateRoute>)
         },
         {
           path: '/login',
