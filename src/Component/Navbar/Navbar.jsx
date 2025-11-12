@@ -24,7 +24,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/add-model"
+          to="/addModel"
           className={({ isActive }) =>
             isActive
               ? "text-purple-400 font-semibold border-b-2 border-purple-400 pb-1"

@@ -2,9 +2,11 @@ import React, { Children } from 'react';
 import { createBrowserRouter } from "react-router";
 import Root from '../Root/Root';
 import Home from '../Home/Home';
-import AddModel from '../AddModel/AddModel';
+
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import AddModel from '../Page/AddModel/AddModel';
 
 const Router = createBrowserRouter([
   {
@@ -17,7 +19,9 @@ const Router = createBrowserRouter([
         },
         {
             path: '/addModel',
-            element: <AddModel></AddModel>
+         element:(<PrivateRoute>
+              <AddModel></AddModel>
+            </PrivateRoute>), 
         },
         {
           path: '/login',
