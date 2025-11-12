@@ -27,7 +27,7 @@ const AllModels = () => {
             <img
               src={model.image}
               alt={model.name}
-              className=" object-cover rounded-xl mb-4 border border-white/20"
+              className="h-50 object-cover rounded-xl mb-4 border border-white/20"
             />
             <h3 className="text-2xl font-semibold text-white mb-2">
               {model.name}

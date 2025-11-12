@@ -24,7 +24,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/addModel"
+          to="/add-Model"
           className={({ isActive }) =>
             isActive
               ? "text-purple-400 font-semibold border-b-2 border-purple-400 pb-1"
@@ -36,7 +36,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/view-models"
+          to="/view-model"
           className={({ isActive }) =>
             isActive
               ? "text-purple-400 font-semibold border-b-2 border-purple-400 pb-1"
@@ -123,10 +123,10 @@ const Navbar = () => {
                   <p className="text-xs text-white/70">{user.email}</p>
                 </li>
                 <li>
-                  <Link to="/purchase">Model Purchase</Link>
+                  <Link to="">Model Purchase</Link>
                 </li>
                 <li>
-                  <Link to="/my-models">My Models</Link>
+                  <Link to="">My Models</Link>
                 </li>
                 <li>
                   <button

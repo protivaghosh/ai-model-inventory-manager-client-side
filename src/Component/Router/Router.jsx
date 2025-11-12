@@ -6,8 +6,10 @@ import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import AddModel from '../Page/AddModel/AddModel';
+
 import ErrorElement from '../ErrorElement/ErrorElement';
+import DetailsModel from '../Page/DetailsModel/DetailsModel';
+import AddModel from '../Page/AddModel/AddModel';
 
 const Router = createBrowserRouter([
   {
@@ -20,12 +22,17 @@ const Router = createBrowserRouter([
           element : <Home></Home>
         },
         {
-            path: '/addModel',
+            path: '/add-Model',
          element:(<PrivateRoute>
               <AddModel></AddModel>
             </PrivateRoute>), 
         },
-        
+        {
+          path: '/models/:id',
+          element: (<PrivateRoute>
+            <DetailsModel></DetailsModel>
+          </PrivateRoute>),
+        },
         {
           path: '/login',
           element : <Login></Login>

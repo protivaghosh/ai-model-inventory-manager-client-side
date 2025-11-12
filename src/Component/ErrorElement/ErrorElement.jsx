@@ -19,7 +19,7 @@ const ErrorElement = () => {
       />
 
       {/* Error Text */}
-      <h1 className="text-3xl md:text-4xl font-bold mb-3">404 | Page Not Found</h1>
+      <h1 className="text-xl md:text-4xl font-bold mb-3">404 | Page Not Found</h1>
       <p className="text-white/80 text-center max-w-md mb-6">
         Oops! The page you are looking for doesn’t exist or might have been moved.
       </p>
