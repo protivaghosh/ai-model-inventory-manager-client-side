@@ -25,6 +25,7 @@ const Router = createBrowserRouter([
               <AddModel></AddModel>
             </PrivateRoute>), 
         },
+        
         {
           path: '/login',
           element : <Login></Login>

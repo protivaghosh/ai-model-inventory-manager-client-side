@@ -1,17 +1,15 @@
 import React from 'react';
 import Banner from '../Banner/Banner';
+import AllModels from '../Page/AllModel/AllModel';
 
 const Home = () => {
     return (
         <div>
             <Banner></Banner>
+            <AllModels></AllModels>
         </div>
 
-    //     // ---------- Get All Models ----------
-    // app.get("/models", async (req, res) => {
-    //   const models = await modelCollection.find().toArray();
-    //   res.send(models);
-    // });
+    
 
     // // ---------- Get Single Model (Details Page) ----------
     // app.get("/models/:id", async (req, res) => {
