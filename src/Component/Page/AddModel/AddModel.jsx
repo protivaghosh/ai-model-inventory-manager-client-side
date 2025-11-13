@@ -32,7 +32,7 @@ const AddModel = () => {
         if (data.success) {
           toast.success("Model added successfully!");
           form.reset();
-          navigate("/view-models");
+          navigate("/models");
         } else {
           toast.error(data.message || "Failed to add model");
         }

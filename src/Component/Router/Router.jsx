@@ -12,6 +12,8 @@ import DetailsModel from '../Page/DetailsModel/DetailsModel';
 import AddModel from '../Page/AddModel/AddModel';
 import UpdateModel from '../Page/UpdateModel/UpdateModel';
 import MyModel from '../Page/Mymodel/MyModel';
+import MyPurchasedModels from '../Page/MyPurchasedModels/MyPurchasedModels';
+import AllModels from '../Page/AllModel/AllModel';
 
 const Router = createBrowserRouter([
   {
@@ -23,12 +25,17 @@ const Router = createBrowserRouter([
           path : '/',
           element : <Home></Home>
         },
+
         {
             path: '/add-Model',
          element:(<PrivateRoute>
               <AddModel></AddModel>
             </PrivateRoute>), 
         },
+        {
+        path: '/models',         
+        element: <AllModels></AllModels>
+      },
         {
           path: '/models/:id',
           element: (<PrivateRoute>
@@ -46,6 +53,12 @@ const Router = createBrowserRouter([
         element:(<PrivateRoute>
           <MyModel></MyModel>
         </PrivateRoute>)
+        },
+        {
+         path: '/purchased-models',
+         element:(<PrivateRoute>
+          <MyPurchasedModels></MyPurchasedModels>
+         </PrivateRoute>)
         },
         {
           path: '/login',

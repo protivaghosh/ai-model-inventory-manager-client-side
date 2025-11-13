@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../AuthProvider/AuthProvider";
-
+import { ThemeContext } from "../ThemeContext/ThemeContext";
 
 const Navbar = () => {
-  const { user, logOut } = useContext(AuthContext); // 
+  const { user, logOut } = useContext(AuthContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
-  const isLoggedIn = !!user; 
+  const isLoggedIn = !!user;
 
   const navLinks = (
     <>
@@ -15,8 +16,8 @@ const Navbar = () => {
           to="/"
           className={({ isActive }) =>
             isActive
-              ? "text-purple-400 font-semibold border-b-2 border-purple-400 pb-1"
-              : "text-white hover:text-purple-300 transition-colors"
+              ? "font-semibold border-b-2 border-purple-400 pb-1 text-purple-400"
+              : "hover:text-purple-400 transition-colors"
           }
         >
           Home
@@ -27,8 +28,8 @@ const Navbar = () => {
           to="/add-Model"
           className={({ isActive }) =>
             isActive
-              ? "text-purple-400 font-semibold border-b-2 border-purple-400 pb-1"
-              : "text-white hover:text-purple-300 transition-colors"
+              ? "font-semibold border-b-2 border-purple-400 pb-1 text-purple-400"
+              : "hover:text-purple-400 transition-colors"
           }
         >
           Add Model
@@ -39,8 +40,8 @@ const Navbar = () => {
           to="/view-model"
           className={({ isActive }) =>
             isActive
-              ? "text-purple-400 font-semibold border-b-2 border-purple-400 pb-1"
-              : "text-white hover:text-purple-300 transition-colors"
+              ? "font-semibold border-b-2 border-purple-400 pb-1 text-purple-400"
+              : "hover:text-purple-400 transition-colors"
           }
         >
           View Models
@@ -50,103 +51,81 @@ const Navbar = () => {
   );
 
   return (
-    <div className="sticky top-0 z-50 backdrop-blur-lg bg-[#0b011a]/80 shadow-md border-b border-white/10">
-      <div className="navbar text-white max-w-7xl mx-auto px-4">
-        {/* Left Side */}
-        <div className="navbar-start">
-          {/* Mobile Menu */}
-          <div className="dropdown">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost text-white lg:hidden"
+    <div className="navbar bg-base-200 text-base-content sticky top-0 z-50 shadow-md px-4">
+      {/* Left: Logo + Mobile menu */}
+      <div className="navbar-start">
+        {/* Mobile Hamburger */}
+        <div className="dropdown">
+          <label tabIndex={0} className="btn btn-ghost lg:hidden">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </div>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </label>
+          <ul
+            tabIndex={0}
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            {navLinks}
+          </ul>
+        </div>
+
+        {/* Logo with gradient text */}
+        <Link
+          to="/"
+          className="ml-2 text-2xl font-extrabold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent"
+        >
+          AI Model Inventory
+        </Link>
+      </div>
+
+      {/* Center Links (Desktop) */}
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1 space-x-4">{navLinks}</ul>
+      </div>
+
+      {/* Right: Theme toggle + User */}
+      <div className="navbar-end flex items-center space-x-2">
+        <button className="btn btn-outline btn-sm" onClick={toggleTheme}>
+          {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+        </button>
+
+        {isLoggedIn ? (
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full border">
+                <img src={user.photoURL || "https://i.ibb.co/9yRjFSp/user.png"} alt="User" />
+              </div>
+            </label>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content mt-3 z-[1] p-4 shadow-lg bg-[#1a1035]/90 backdrop-blur-xl rounded-xl w-56 border border-white/20"
+              className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-1"
             >
-              {navLinks}
+              <li className="text-center">
+                <p className="font-semibold">{user.displayName || "User"}</p>
+                <p className="text-xs text-gray-500">{user.email}</p>
+              </li>
+              <li>
+                <Link to="purchased-models">Model Purchase</Link>
+              </li>
+              <li>
+                <Link to="my-models">My Models</Link>
+              </li>
+              <li>
+                <button onClick={logOut}>Logout</button>
+              </li>
             </ul>
           </div>
-
-          {/* Logo */}
-          <Link
-            to="/"
-            className="text-2xl font-extrabold bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent"
-          >
-            AI Model Inventory
+        ) : (
+          <Link className="btn btn-outline btn-sm" to="/login">
+            Login
           </Link>
-        </div>
-
-        {/* Center Links (Desktop) */}
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 space-x-6">{navLinks}</ul>
-        </div>
-
-        {/* Right Side */}
-        <div className="navbar-end">
-          {isLoggedIn ? (
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn btn-ghost btn-circle avatar"
-              >
-                <div className="w-14 rounded-full border-2 border-purple-400">
-                  <img
-                    alt="User Profile"
-                    src={user.photoURL || "https://i.ibb.co/9yRjFSp/user.png"}
-                  />
-                </div>
-              </div>
-              <ul
-                tabIndex={0}
-                className="mt-3 z-[1] p-3 shadow menu menu-sm dropdown-content bg-[#1a1035]/90 backdrop-blur-xl rounded-xl w-56 border border-white/20 text-white"
-              >
-                <li className="text-center font-semibold border-b border-white/20 pb-2">
-                  <p className="text-sm">{user.displayName || "User"}</p>
-                  <p className="text-xs text-white/70">{user.email}</p>
-                </li>
-                <li>
-                  <Link to="">Model Purchase</Link>
-                </li>
-                <li>
-                  <Link to="my-models">My Models</Link>
-                </li>
-                <li>
-                  <button
-                    onClick={logOut}
-                    className="hover:text-purple-300 transition-colors w-full text-left"
-                  >
-                    Logout
-                  </button>
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <Link
-              to="/login"
-              className="btn btn-outline border-purple-400 text-purple-300 hover:bg-purple-500 hover:text-white px-5 py-2 rounded-lg font-semibold transition-all duration-200"
-            >
-              Login
-            </Link>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );

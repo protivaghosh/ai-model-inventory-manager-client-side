@@ -12,17 +12,17 @@ const AllModels = () => {
   }, []);
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen py-10 px-6">
-      <h2 className="text-4xl font-bold text-center text-white mb-10">
+    <div className="bg-base-200 text-base-content min-h-screen py-10 px-6">
+      <h2 className="text-4xl font-bold text-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-10">
         All AI Models
       </h2>
 
       {/* Cards Container */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
         {models.map((model) => (
           <div
             key={model._id}
-            className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300 p-6 flex flex-col items-center text-center"
+            className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-300 p-6 flex flex-col items-center text-center"
           >
             <img
               src={model.image}

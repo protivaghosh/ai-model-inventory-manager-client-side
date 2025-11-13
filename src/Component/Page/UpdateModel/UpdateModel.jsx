@@ -21,11 +21,11 @@ const UpdateModel = () => {
   // ✅ Fetch model details
   useEffect(() => {
     fetch(`http://localhost:5000/models/${id}`)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.createdBy !== user.email) {
           toast.error("You are not authorized to edit this model!");
-          navigate(-1); // go back
+          navigate(-1);
           return;
         }
         setModel({
@@ -45,12 +45,12 @@ const UpdateModel = () => {
   }, [id, user.email, navigate]);
 
   // ✅ Handle form changes
-  const handleChange = e => {
+  const handleChange = (e) => {
     setModel({ ...model, [e.target.name]: e.target.value });
   };
 
   // ✅ Handle form submission
-  const handleUpdate = async e => {
+  const handleUpdate = async (e) => {
     e.preventDefault();
     try {
       const res = await fetch(`http://localhost:5000/models/${id}`, {
@@ -74,76 +74,74 @@ const UpdateModel = () => {
   };
 
   if (loading)
-    return <p className="text-white text-center mt-10 animate-pulse">Loading...</p>;
+    return (
+      <p className="text-white text-center mt-10 animate-pulse">Loading...</p>
+    );
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 p-6">
+    <div className="min-h-screen flex items-center justify-center p-6">
       <form
         onSubmit={handleUpdate}
-        className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8 max-w-xl w-full text-white"
+        className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 backdrop-blur-lg border border-white/20 rounded-2xl p-8 max-w-xl w-full text-white shadow-2xl"
       >
-        <h2 className="text-3xl font-bold mb-6 text-indigo-300">Update Model</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-white drop-shadow-lg">
+          ✨ Update Model
+        </h2>
 
-        <label className="block mb-2 font-semibold">Name</label>
-        <input
-          type="text"
-          name="name"
-          value={model.name}
-          onChange={handleChange}
-          className="w-full p-2 rounded-lg mb-4 text-black"
-          required
-        />
+        {[
+          { label: "Name", name: "name" },
+          { label: "Framework", name: "framework" },
+          { label: "Use Case", name: "useCase" },
+          { label: "Dataset", name: "dataset" },
+        ].map((field) => (
+          <div key={field.name} className="mb-4">
+            <label className="block mb-1 font-semibold text-white/90">
+              {field.label}
+            </label>
+            <input
+              type="text"
+              name={field.name}
+              value={model[field.name]}
+              onChange={handleChange}
+              className="w-full p-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
+              required={field.name !== "dataset"}
+              placeholder={`Enter ${field.label}`}
+            />
+          </div>
+        ))}
 
-        <label className="block mb-2 font-semibold">Framework</label>
-        <input
-          type="text"
-          name="framework"
-          value={model.framework}
-          onChange={handleChange}
-          className="w-full p-2 rounded-lg mb-4 text-black"
-          required
-        />
+        <div className="mb-4">
+          <label className="block mb-1 font-semibold text-white/90">
+            Description
+          </label>
+          <textarea
+            name="description"
+            value={model.description}
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-400 transition-all"
+            rows="4"
+            placeholder="Write a short description..."
+            required
+          />
+        </div>
 
-        <label className="block mb-2 font-semibold">Use Case</label>
-        <input
-          type="text"
-          name="useCase"
-          value={model.useCase}
-          onChange={handleChange}
-          className="w-full p-2 rounded-lg mb-4 text-black"
-          required
-        />
-
-        <label className="block mb-2 font-semibold">Dataset</label>
-        <input
-          type="text"
-          name="dataset"
-          value={model.dataset}
-          onChange={handleChange}
-          className="w-full p-2 rounded-lg mb-4 text-black"
-        />
-
-        <label className="block mb-2 font-semibold">Description</label>
-        <textarea
-          name="description"
-          value={model.description}
-          onChange={handleChange}
-          className="w-full p-2 rounded-lg mb-4 text-black"
-          required
-        />
-
-        <label className="block mb-2 font-semibold">Image URL</label>
-        <input
-          type="text"
-          name="image"
-          value={model.image}
-          onChange={handleChange}
-          className="w-full p-2 rounded-lg mb-4 text-black"
-        />
+        <div className="mb-6">
+          <label className="block mb-1 font-semibold text-white/90">
+            Image URL
+          </label>
+          <input
+            type="text"
+            name="image"
+            value={model.image}
+            onChange={handleChange}
+            className="w-full p-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-400 transition-all"
+            placeholder="Paste image URL..."
+          />
+        </div>
 
         <button
           type="submit"
-          className="w-full bg-indigo-500 hover:bg-indigo-600 py-2 rounded-lg font-semibold transition-all"
+          className="w-full bg-indigo-600 hover:bg-indigo-700 py-3 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all"
         >
           Update Model
         </button>

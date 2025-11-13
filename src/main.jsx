@@ -6,13 +6,17 @@ import { RouterProvider } from "react-router/dom";
 import Router from './Component/Router/Router.jsx';
 import AuthProvider from './Component/AuthProvider/AuthProvider.jsx';
 import { Toaster } from 'react-hot-toast';
+import { ThemeProvider } from './Component/ThemeContext/ThemeContext.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <AuthProvider>
+    <ThemeProvider>
+       <AuthProvider>
    <RouterProvider router={Router} />
     {/* Toast container */}
       <Toaster position="top-center" reverseOrder={false} />
     </AuthProvider>
+    </ThemeProvider>
+    
   </StrictMode>
 )
