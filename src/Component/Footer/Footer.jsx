@@ -4,7 +4,7 @@ import { FaGithub, FaFacebook, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-white border-t border-white/10 backdrop-blur-xl mt-auto">
+    <footer className="bg-base-300 border-t border-white/10 backdrop-blur-xl mt-auto">
       <div className="max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
         {/* Left: Logo / Title */}
         <div className="text-center md:text-left">
@@ -14,7 +14,7 @@ const Footer = () => {
           >
             AI Model Inventory
           </Link>
-          <p className="text-sm text-white/70 mt-1 italic">
+          <p className="text-gray-600 mt-1 italic">
             Manage and track your AI models efficiently.
           </p>
         </div>
@@ -23,27 +23,27 @@ const Footer = () => {
         <div className="flex flex-wrap justify-center gap-6 text-sm font-medium">
           <Link
             to="/"
-            className="text-white hover:text-purple-400 transition-colors duration-200"
+            className="text-gray-600 hover:text-purple-400 transition-colors duration-200"
           >
             Home
           </Link>
           <Link
             to="/add-model"
-            className="text-white hover:text-purple-400 transition-colors duration-200"
+            className="text-gray-600 hover:text-purple-400 transition-colors duration-200"
           >
             Add Model
           </Link>
           <Link
-            to="/view-models"
-            className="text-white hover:text-purple-400 transition-colors duration-200"
+            to="/models"
+            className="text-gray-600 hover:text-purple-400 transition-colors duration-200"
           >
-            View Models
+            All Models
           </Link>
           <a
             href="https://github.com/"
             target="_blank"
             rel="noreferrer"
-            className="text-white hover:text-purple-400 transition-colors duration-200"
+            className="text-gray-600 hover:text-purple-400 transition-colors duration-200"
           >
             GitHub
           </a>
@@ -55,7 +55,7 @@ const Footer = () => {
             href="https://github.com/"
             target="_blank"
             rel="noreferrer"
-            className="text-white/70 hover:text-purple-400 transition-colors text-xl"
+            className="text-gray-700 hover:text-purple-400 transition-colors text-xl"
           >
             <FaGithub />
           </a>
@@ -63,7 +63,7 @@ const Footer = () => {
             href="https://facebook.com/"
             target="_blank"
             rel="noreferrer"
-            className="text-white/70 hover:text-purple-400 transition-colors text-xl"
+            className="text-gray-700 hover:text-purple-400 transition-colors text-xl"
           >
             <FaFacebook />
           </a>
@@ -71,7 +71,7 @@ const Footer = () => {
             href="https://linkedin.com/"
             target="_blank"
             rel="noreferrer"
-            className="text-white/70 hover:text-purple-400 transition-colors text-xl"
+            className="text-gray-700 hover:text-purple-400 transition-colors text-xl"
           >
             <FaLinkedin />
           </a>
@@ -79,10 +79,10 @@ const Footer = () => {
       </div>
 
       {/* Divider Line */}
-      <hr className="border-t border-white/20 mx-auto w-[90%]" />
+      <hr className="border-t border-gray-300/20 mx-auto w-[90%]" />
 
       {/* Bottom Copyright */}
-      <div className="text-center text-white/50 text-sm py-4">
+      <div className="text-center text-gray-600 text-sm py-4">
         © {new Date().getFullYear()} All Rights Reserved.
       </div>
 
