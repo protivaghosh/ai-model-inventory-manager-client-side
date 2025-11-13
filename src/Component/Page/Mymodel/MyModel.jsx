@@ -48,8 +48,8 @@ const MyModel = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen py-10 px-6">
-      <h1 className="text-4xl text-center font-bold text-indigo-300 mb-10">
+    <div className="min-h-screen py-10 px-6">
+      <h1 className="text-4xl text-center font-bold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-10">
         My Models ({models.length})
       </h1>
 
@@ -57,14 +57,14 @@ const MyModel = () => {
         {models.map((model) => (
           <div
             key={model._id}
-            className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg p-6 text-white hover:scale-105 transition-all duration-300"
+            className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg p-6 text-white hover:scale-105 transition-all duration-300"
           >
             <img
               src={model.image}
               alt={model.name}
               className="w-full h-48 object-cover rounded-xl mb-4 border border-white/20"
             />
-            <h2 className="text-2xl font-bold text-indigo-300 mb-2">
+            <h2 className="text-2xl font-bold text-gray-100 mb-2">
               {model.name}
             </h2>
             <p className="text-gray-300">

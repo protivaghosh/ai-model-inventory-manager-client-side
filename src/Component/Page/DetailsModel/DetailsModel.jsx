@@ -77,7 +77,11 @@ const DetailsModel = () => {
         const data = await res.json();
 
         if (res.ok) {
-          Swal.fire("Deleted!", data.message || "Your model has been deleted.", "success");
+          Swal.fire(
+            "Deleted!",
+            data.message || "Your model has been deleted.",
+            "success"
+          );
           navigate("/models");
         } else {
           toast.error(data.message || "Failed to delete model!");
@@ -91,49 +95,63 @@ const DetailsModel = () => {
 
   // Loading & Null checks
   if (loading) {
-    return <p className="text-center text-white mt-10 text-xl animate-pulse">Loading...</p>;
+    return (
+      <p className="text-center text-white mt-10 text-xl animate-pulse">
+        Loading...
+      </p>
+    );
   }
 
   if (!model) {
-    return <p className="text-center text-red-400 mt-10 text-lg">Model not found.</p>;
+    return (
+      <p className="text-center text-red-400 mt-10 text-lg">Model not found.</p>
+    );
   }
 
-  const isCreator = user?.email?.toLowerCase() === model?.createdBy?.toLowerCase();
+  const isCreator =
+    user?.email?.toLowerCase() === model?.createdBy?.toLowerCase();
 
   return (
-    <div className="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen flex items-center justify-center py-10 px-6">
-      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg p-8 max-w-3xl text-white">
+    <div className="min-h-screen flex items-center justify-center py-10 px-6">
+      <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 backdrop-blur-lg border border-white/20 rounded-2xl shadow-xl p-8 max-w-3xl text-white">
         {/* Model Image */}
         {model?.image && (
           <img
             src={model.image}
             alt={model.name || "Model Image"}
-            className="w-full h-72 object-cover rounded-xl mb-6 border border-white/20"
+            className="w-full h-72 object-cover rounded-xl mb-6 border border-white/20 shadow-md"
           />
         )}
 
         {/* Model Info */}
-        <h2 className="text-4xl font-bold mb-3 text-indigo-300">{model?.name || "Unknown Model"}</h2>
-        <p className="text-gray-300 mb-2">
-          <span className="font-semibold text-indigo-400">Framework:</span> {model?.framework || "N/A"}
+        <h2 className="text-4xl font-bold mb-3 text-gray-100 drop-shadow">
+          {model?.name || "Unknown Model"}
+        </h2>
+        <p className="text-gray-100 mb-2">
+          <span className="font-semibold text-indigo-200">Framework:</span>{" "}
+          {model?.framework || "N/A"}
         </p>
-        <p className="text-gray-300 mb-2">
-          <span className="font-semibold text-indigo-400">Use Case:</span> {model?.useCase || "N/A"}
+        <p className="text-gray-100 mb-2">
+          <span className="font-semibold text-indigo-200">Use Case:</span>{" "}
+          {model?.useCase || "N/A"}
         </p>
-        <p className="text-gray-300 mb-2">
-          <span className="font-semibold text-indigo-400">Dataset:</span> {model?.dataset || "N/A"}
+        <p className="text-gray-100 mb-2">
+          <span className="font-semibold text-indigo-200">Dataset:</span>{" "}
+          {model?.dataset || "N/A"}
         </p>
-        <p className="text-gray-400 mt-4">{model?.description || "No description available."}</p>
-        <p className="mt-6 text-sm text-gray-400">
-          Created by: <span className="text-indigo-300">{model?.createdBy || "Unknown"}</span>
+        <p className="text-gray-200 mt-4">{model?.description || "No description available."}</p>
+        <p className="mt-6 text-sm text-gray-300">
+          Created by: <span className="text-indigo-200">{model?.createdBy || "Unknown"}</span>
         </p>
-        <p className="text-sm text-gray-400">Purchased {model?.purchased || 0} times</p>
+        <p className="text-sm text-gray-300">
+          Purchased {model?.purchased || 0} times
+        </p>
 
         {/* Action Buttons */}
         <div className="mt-8 flex flex-wrap gap-4">
           <button
             onClick={handlePurchase}
-            className="btn btn-outline border-purple-400 text-purple-300 hover:bg-purple-500 hover:text-white px-3 py-2 rounded-lg font-semibold transition-all duration-200"
+            className="px-4 py-2 bg-white/20 hover:bg-white/30 text-white font-semibold rounded-lg border border-white/30 shadow-md hover:shadow-lg backdrop-blur-sm transition-all duration-300"
           >
             Purchase Model
           </button>

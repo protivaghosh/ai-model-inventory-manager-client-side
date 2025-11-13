@@ -37,14 +37,14 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/view-model"
+          to="/models"
           className={({ isActive }) =>
             isActive
               ? "font-semibold border-b-2 border-purple-400 pb-1 text-purple-400"
               : "hover:text-purple-400 transition-colors"
           }
         >
-          View Models
+          All Models
         </NavLink>
       </li>
     </>
@@ -71,11 +71,37 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
+            {/* Theme toggle */}
+            <li>
+              <button className="w-full text-left" onClick={toggleTheme}>
+                {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+              </button>
+            </li>
+            <hr />
             {navLinks}
+            <hr />
+            {isLoggedIn && (
+              <>
+                <li>
+                  <Link to="purchased-models">Model Purchase</Link>
+                </li>
+                <li>
+                  <Link to="my-models">My Models</Link>
+                </li>
+                <li>
+                  <button onClick={logOut}>Logout</button>
+                </li>
+              </>
+            )}
+            {!isLoggedIn && (
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            )}
           </ul>
         </div>
 
-        {/* Logo with gradient text */}
+        {/* Logo */}
         <Link
           to="/"
           className="ml-2 text-2xl font-extrabold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent"
@@ -89,13 +115,9 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1 space-x-4">{navLinks}</ul>
       </div>
 
-      {/* Right: Theme toggle + User */}
-      <div className="navbar-end flex items-center space-x-2">
-        <button className="btn btn-outline btn-sm" onClick={toggleTheme}>
-          {theme === "light" ? "🌙 Dark" : "☀️ Light"}
-        </button>
-
-        {isLoggedIn ? (
+      {/* Right: Desktop Avatar & Theme */}
+      {isLoggedIn && (
+        <div className="navbar-end hidden lg:flex items-center gap-2">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full border">
@@ -110,6 +132,13 @@ const Navbar = () => {
                 <p className="font-semibold">{user.displayName || "User"}</p>
                 <p className="text-xs text-gray-500">{user.email}</p>
               </li>
+              <hr />
+              <li>
+                <button className="w-full text-left" onClick={toggleTheme}>
+                  {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+                </button>
+              </li>
+              <hr />
               <li>
                 <Link to="purchased-models">Model Purchase</Link>
               </li>
@@ -121,12 +150,16 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-        ) : (
+        </div>
+      )}
+
+      {!isLoggedIn && (
+        <div className="navbar-end hidden lg:flex">
           <Link className="btn btn-outline btn-sm" to="/login">
             Login
           </Link>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
