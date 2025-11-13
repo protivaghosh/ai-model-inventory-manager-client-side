@@ -1,16 +1,30 @@
-# React + Vite
+# AI Model Inventory Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Live Site:** [Visit Live Site](http://your-live-site.com)
 
-Currently, two official plugins are available:
+AI Model Inventory Manager is a full-stack web application designed to help users manage, explore, and purchase AI models efficiently. Users can browse the latest models, filter by frameworks, search for models, and track purchases seamlessly.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Browse Latest Models:** View the newest AI models in a visually appealing card layout.
+2. **Search Models:** Search models by name for quick access.
+3. **Filter by Framework:** Filter models based on frameworks such as TensorFlow or PyTorch.
+4. **Detailed Model Information:** View model details including framework, use case, dataset, description, and image.
+5. **Purchase Tracking:** Users can purchase models and track their purchase history.
+6. **User Management:** Register users with profile photos and emails. Prevents duplicate registrations.
+7. **Responsive Design:** Works well on both desktop and mobile devices.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+- **Frontend:** React.js, Tailwind CSS, DaisyUI
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB
+- **Other:** REST API, CORS, dotenv for environment variables
+
+
+
+
