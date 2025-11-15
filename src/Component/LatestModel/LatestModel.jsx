@@ -8,13 +8,13 @@ const LatestModel = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/latest-models")
+    fetch("https://ai-model-manager.vercel.app/latest-models")
       .then(res => {
         if (!res.ok) throw new Error("Failed to fetch latest models");
         return res.json();
       })
       .then(data => {
-        setLatestModels(data); // Data is an array of models
+        setLatestModels(data); 
         setLoading(false);
       })
       .catch(err => {
@@ -24,7 +24,7 @@ const LatestModel = () => {
       });
   }, []);
 
-  if (loading) return <p className="text-center mt-10 text-white animate-pulse">Loading latest models...</p>;
+  if (loading) return <p className="text-center mt-10 text-pink-800 animate-pulse">Loading latest models...</p>;
   if (error) return <p className="text-center mt-10 text-red-500">{error}</p>;
 
   return (

@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom"; // ✔️ FIXED IMPORT
 import { FaGithub, FaFacebook, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-base-300 border-t border-white/10 backdrop-blur-xl mt-auto">
+    <footer className="bg-base-300 border-t border-white/10 backdrop-blur-xl w-full">
       <div className="max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row justify-between items-center gap-6">
+        
         {/* Left: Logo / Title */}
         <div className="text-center md:text-left">
           <Link
@@ -79,7 +80,7 @@ const Footer = () => {
       </div>
 
       {/* Divider Line */}
-      <hr className="border-t border-gray-300/20 mx-auto w-[90%]" />
+      <hr className="border-t border-gray-300 mx-auto w-[90%]" />
 
       {/* Bottom Copyright */}
       <div className="text-center text-gray-600 text-sm py-4">

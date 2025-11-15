@@ -13,7 +13,7 @@ const MyModel = () => {
     console.log("Fetching my models for:", user.email);
 
     //  Fetch only models created by the logged-in user
-    fetch(`http://localhost:5000/models?createdBy=${user.email}`)
+    fetch(`https://ai-model-manager.vercel.app/models?createdBy=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setModels(data);

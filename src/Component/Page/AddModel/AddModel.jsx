@@ -22,7 +22,7 @@ const AddModel = () => {
       createdBy: user?.email,
     };
 
-    fetch("http://localhost:5000/models", {
+    fetch("https://ai-model-manager.vercel.app/models", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(modelData),

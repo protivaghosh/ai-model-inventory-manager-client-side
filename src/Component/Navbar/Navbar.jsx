@@ -71,34 +71,12 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
-            {/* Theme toggle */}
-            <li>
-              <button className="w-full text-left" onClick={toggleTheme}>
-                {theme === "light" ? "🌙 Dark" : "☀️ Light"}
-              </button>
-            </li>
-            <hr />
-            {navLinks}
-            <hr />
-            {isLoggedIn && (
-              <>
-                <li>
-                  <Link to="purchased-models">Model Purchase</Link>
-                </li>
-                <li>
-                  <Link to="my-models">My Models</Link>
-                </li>
-                <li>
-                  <button onClick={logOut}>Logout</button>
-                </li>
-              </>
-            )}
-            {!isLoggedIn && (
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-            )}
-          </ul>
+           <li>
+           {navLinks}
+           </li>
+          
+            
+           </ul>
         </div>
 
         {/* Logo */}
@@ -121,7 +99,7 @@ const Navbar = () => {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full border">
-                <img src={user.photoURL || "https://i.ibb.co/9yRjFSp/user.png"} alt="User" />
+                <img referrerpolicy="no-referrer" src={user.photoURL || "https://i.ibb.co/9yRjFSp/user.png"} alt="User" />
               </div>
             </label>
             <ul
@@ -154,7 +132,7 @@ const Navbar = () => {
       )}
 
       {!isLoggedIn && (
-        <div className="navbar-end hidden lg:flex">
+        <div className="navbar-end  lg:flex">
           <Link className="btn btn-outline btn-sm" to="/login">
             Login
           </Link>

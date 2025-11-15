@@ -20,7 +20,7 @@ const UpdateModel = () => {
 
   // ✅ Fetch model details
   useEffect(() => {
-    fetch(`http://localhost:5000/models/${id}`)
+    fetch(`https://ai-model-manager.vercel.app/models/${id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.createdBy !== user.email) {
@@ -53,7 +53,7 @@ const UpdateModel = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`http://localhost:5000/models/${id}`, {
+      const res = await fetch(`https://ai-model-manager.vercel.app/models/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(model),

@@ -1,6 +1,6 @@
 # AI Model Inventory Manager
 
-**Live Site:** [Visit Live Site](http://your-live-site.com)
+**Live Site:** [Visit Live Site](https://ai-model-inventory-maneger.netlify.app)
 
 AI Model Inventory Manager is a full-stack web application designed to help users manage, explore, and purchase AI models efficiently. Users can browse the latest models, filter by frameworks, search for models, and track purchases seamlessly.
 

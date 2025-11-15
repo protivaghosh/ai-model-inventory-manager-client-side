@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom"; // note: react-router-dom
 
 const AllModels = () => {
   const [models, setModels] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [framework, setFramework] = useState(""); // NEW: framework filter
+  const [framework, setFramework] = useState(""); // Framework filter
   const [loading, setLoading] = useState(true);
+
+  // Backend API URL (absolute)
+  const API_URL = "https://ai-model-manager.vercel.app";
 
   // Fetch models from backend
   const fetchModels = async () => {
     setLoading(true);
     try {
-      let url = `http://localhost:5000/models?`;
+      let url = `${API_URL}/models?`;
       if (searchTerm) url += `name=${encodeURIComponent(searchTerm)}&`;
       if (framework) url += `framework=${encodeURIComponent(framework)}&`;
 
@@ -33,10 +36,10 @@ const AllModels = () => {
     }
   };
 
-  // Fetch all models on mount and when searchTerm or framework changes
+  // Fetch on mount and whenever searchTerm/framework changes
   useEffect(() => {
     fetchModels();
-  }, [searchTerm, framework]); // ✅ added dependency on framework
+  }, [searchTerm, framework]);
 
   return (
     <div className="bg-base-200 text-base-content min-h-screen py-10 px-6">
@@ -46,7 +49,6 @@ const AllModels = () => {
 
       {/* Search + Framework Filter */}
       <div className="flex flex-col md:flex-row justify-center items-center gap-4 max-w-md mx-auto mb-8">
-        {/* Search */}
         <input
           type="text"
           placeholder="Search models by name..."
@@ -54,8 +56,6 @@ const AllModels = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
         />
-
-        {/* Framework Filter */}
         <select
           value={framework}
           onChange={(e) => setFramework(e.target.value)}
@@ -67,9 +67,9 @@ const AllModels = () => {
         </select>
       </div>
 
-      {/* Cards Container */}
+      {/* Cards */}
       {loading ? (
-        <p className="text-center text-white text-xl animate-pulse">Loading...</p>
+        <p className="text-center text-pink-800 text-xl animate-pulse">Loading...</p>
       ) : models.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {models.map((model) => (
@@ -82,18 +82,13 @@ const AllModels = () => {
                 alt={model.name}
                 className="h-48 w-full object-cover rounded-xl mb-4 border border-white/30 shadow-md"
               />
-              <h3 className="text-2xl font-semibold text-white mb-2 drop-shadow">
-                {model.name}
-              </h3>
+              <h3 className="text-2xl font-semibold text-white mb-2 drop-shadow">{model.name}</h3>
               <p className="text-sm text-gray-100 mb-1">
-                <span className="font-medium text-yellow-200">Framework:</span>{" "}
-                {model.framework || "N/A"}
+                <span className="font-medium text-yellow-200">Framework:</span> {model.framework || "N/A"}
               </p>
               <p className="text-sm text-gray-100 mb-4">
-                <span className="font-medium text-cyan-200">Use Case:</span>{" "}
-                {model.useCase || "N/A"}
+                <span className="font-medium text-cyan-200">Use Case:</span> {model.useCase || "N/A"}
               </p>
-
               <Link
                 to={`/models/${model._id}`}
                 className="px-6 py-2 mt-auto bg-white/20 hover:bg-white/30 text-white font-semibold rounded-lg border border-white/30 shadow-md hover:shadow-lg backdrop-blur-sm transition-all duration-300"
@@ -104,9 +99,7 @@ const AllModels = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-300 text-xl mt-10">
-          No models found.
-        </p>
+        <p className="text-center text-gray-300 text-xl mt-10">No models found.</p>
       )}
     </div>
   );

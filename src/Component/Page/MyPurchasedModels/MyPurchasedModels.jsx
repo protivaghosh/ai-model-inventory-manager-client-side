@@ -11,7 +11,7 @@ const MyPurchasedModels = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:5000/purchases?purchasedBy=${user.email}`)
+    fetch(`https://ai-model-manager.vercel.app/purchases?purchasedBy=${user.email}`)
       .then(res => res.json())
       .then(data => {
         setPurchases(data);
