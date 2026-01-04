@@ -14,6 +14,9 @@ import UpdateModel from '../Page/UpdateModel/UpdateModel';
 import MyModel from '../Page/Mymodel/MyModel';
 import MyPurchasedModels from '../Page/MyPurchasedModels/MyPurchasedModels';
 import AllModels from '../Page/AllModel/AllModel';
+import Profile from '../DashBoard/Profile';
+import DashBoardLayout from '../DashBoard/DashBoardLayout';
+import DashboardHome from '../DashBoard/DashboardHome';
 
 const Router = createBrowserRouter([
   {
@@ -61,6 +64,11 @@ const Router = createBrowserRouter([
          </PrivateRoute>)
         },
         {
+          path : '/profile',
+          element : <Profile></Profile>
+
+        },
+        {
           path: '/login',
           element : <Login></Login>
         },
@@ -70,7 +78,19 @@ const Router = createBrowserRouter([
         }
     ]
 
-    }
+    },
+    {
+  path: "/dashboard",
+  element: <PrivateRoute><DashBoardLayout /></PrivateRoute>,
+  children: [
+    { index: true, element: <DashboardHome /> },
+    { path: "my-models", element: <MyModel /> },
+    { path: "add-model", element: <AddModel /> },
+    { path: "purchased-models", element: <MyPurchasedModels /> },
+    { path: "profile", element: <Profile /> }
+  ]
+}
+
 ]);
 
 export default Router;

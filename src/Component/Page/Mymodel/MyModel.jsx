@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const MyModel = () => {
@@ -10,14 +10,12 @@ const MyModel = () => {
 
   useEffect(() => {
     if (!user?.email) return;
-    console.log("Fetching my models for:", user.email);
 
-    //  Fetch only models created by the logged-in user
     fetch(`https://ai-model-manager.vercel.app/models?createdBy=${user.email}`)
-      .then((res) => res.json())
-      .then((data) => {
+      .then(res => res.json())
+      .then(data => {
         setModels(data);
-       setLoading(false);
+        setLoading(false);
       })
       .catch(() => {
         toast.error("Failed to load your models");
@@ -27,19 +25,19 @@ const MyModel = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-white text-2xl">
-        Loading your models...
+      <div className="min-h-screen flex justify-center items-center">
+        <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
   }
 
   if (models.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center text-gray-300">
-        <p className="text-xl mb-3">You haven’t added any models yet!</p>
+      <div className="min-h-screen flex flex-col items-center justify-center text-base-content">
+        <p className="text-xl mb-4">You haven’t added any models yet</p>
         <Link
           to="/add-model"
-          className="bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-lg text-white"
+          className="px-5 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg font-semibold"
         >
           Add New Model
         </Link>
@@ -48,43 +46,44 @@ const MyModel = () => {
   }
 
   return (
-    <div className="min-h-screen py-10 px-6">
-      <h1 className="text-4xl text-center font-bold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-10">
+    <div className="min-h-screen px-6 py-10 bg-base-100 text-base-content">
+      <h2 className="text-4xl font-bold text-center mb-10">
         My Models ({models.length})
-      </h1>
+      </h2>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {models.map((model) => (
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {models.map(model => (
           <div
             key={model._id}
-            className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 backdrop-blur-lg border border-white/20 rounded-2xl shadow-lg p-6 text-white hover:scale-105 transition-all duration-300"
+            className="bg-base-200 rounded-2xl shadow-lg p-6 flex flex-col"
           >
             <img
               src={model.image}
               alt={model.name}
-              className="w-full h-48 object-cover rounded-xl mb-4 border border-white/20"
+              className="h-48 w-full object-cover rounded-xl mb-4"
             />
-            <h2 className="text-2xl font-bold text-gray-100 mb-2">
-              {model.name}
-            </h2>
-            <p className="text-gray-300">
-              <span className="font-semibold text-indigo-400">Framework:</span>{" "}
-              {model.framework}
+
+            <h3 className="text-2xl font-semibold mb-1">{model.name}</h3>
+            <p className="text-sm mb-1">
+              <strong>Framework:</strong> {model.framework}
             </p>
-            <p className="text-gray-300">
-              <span className="font-semibold text-indigo-400">Use Case:</span>{" "}
-              {model.useCase}
-            </p>
-            <p className="text-gray-400 text-sm mt-2">
-              Created by: <span className="text-indigo-300">{model.createdBy}</span>
+            <p className="text-sm mb-3">
+              <strong>Use Case:</strong> {model.useCase}
             </p>
 
-            <div className="mt-4">
+            <div className="mt-auto flex gap-3">
               <Link
                 to={`/models/${model._id}`}
-                className="bg-purple-500 hover:bg-purple-600 px-4 py-2 rounded-lg text-white font-semibold transition-all"
+                className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-sm"
               >
-                View Details
+                View
+              </Link>
+
+              <Link
+                to={`/update-model/${model._id}`}
+                className="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 rounded-lg text-sm font-semibold"
+              >
+                Edit
               </Link>
             </div>
           </div>

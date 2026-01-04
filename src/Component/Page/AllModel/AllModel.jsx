@@ -1,65 +1,60 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // note: react-router-dom
+import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { ThemeContext } from "../../ThemeContext/ThemeContext";
+
 
 const AllModels = () => {
+  const { theme } = useContext(ThemeContext);
+
   const [models, setModels] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [framework, setFramework] = useState(""); // Framework filter
+  const [framework, setFramework] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Backend API URL (absolute)
   const API_URL = "https://ai-model-manager.vercel.app";
 
-  // Fetch models from backend
-  const fetchModels = async () => {
-    setLoading(true);
-    try {
-      let url = `${API_URL}/models?`;
-      if (searchTerm) url += `name=${encodeURIComponent(searchTerm)}&`;
-      if (framework) url += `framework=${encodeURIComponent(framework)}&`;
-
-      const res = await fetch(url);
-      if (!res.ok) {
-        console.error("Server returned error:", res.status);
-        setModels([]);
-        setLoading(false);
-        return;
-      }
-
-      const data = await res.json();
-      setModels(data);
-    } catch (err) {
-      console.error("Error fetching models:", err);
-      setModels([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Fetch on mount and whenever searchTerm/framework changes
   useEffect(() => {
+    const fetchModels = async () => {
+      setLoading(true);
+      try {
+        let url = `${API_URL}/models?`;
+        if (searchTerm) url += `name=${encodeURIComponent(searchTerm)}&`;
+        if (framework) url += `framework=${encodeURIComponent(framework)}&`;
+
+        const res = await fetch(url);
+        const data = await res.json();
+        setModels(data);
+      } catch (error) {
+        console.error(error);
+        setModels([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchModels();
   }, [searchTerm, framework]);
 
   return (
-    <div className="bg-base-200 text-base-content min-h-screen py-10 px-6">
-      <h2 className="text-4xl font-bold text-center bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent mb-6">
+    <div className="min-h-screen py-10 px-6 bg-base-100 text-base-content">
+      <h2 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
         All AI Models
       </h2>
 
-      {/* Search + Framework Filter */}
-      <div className="flex flex-col md:flex-row justify-center items-center gap-4 max-w-md mx-auto mb-8">
+      {/* Search & Filter */}
+      <div className="flex flex-col md:flex-row gap-4 justify-center max-w-md mx-auto mb-10">
         <input
           type="text"
-          placeholder="Search models by name..."
+          placeholder="Search by model name"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
+          className="w-full p-3 rounded-lg border border-base-300 bg-base-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
+
         <select
           value={framework}
           onChange={(e) => setFramework(e.target.value)}
-          className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all"
+          className="w-full p-3 rounded-lg border border-base-300 bg-base-200 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value="">All Frameworks</option>
           <option value="TensorFlow">TensorFlow</option>
@@ -67,31 +62,37 @@ const AllModels = () => {
         </select>
       </div>
 
-      {/* Cards */}
+      {/* Content */}
       {loading ? (
-        <p className="text-center text-pink-800 text-xl animate-pulse">Loading...</p>
-      ) : models.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+        <p className="text-center text-lg animate-pulse">Loading models...</p>
+      ) : models.length ? (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
           {models.map((model) => (
             <div
               key={model._id}
-              className="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl hover:scale-105 transition-transform duration-300 p-6 flex flex-col items-center text-center"
+              className="bg-base-200 rounded-2xl shadow-lg hover:shadow-2xl transition p-6 flex flex-col"
             >
               <img
                 src={model.image || "https://via.placeholder.com/400x250"}
                 alt={model.name}
-                className="h-48 w-full object-cover rounded-xl mb-4 border border-white/30 shadow-md"
+                className="h-48 w-full object-cover rounded-xl mb-4"
               />
-              <h3 className="text-2xl font-semibold text-white mb-2 drop-shadow">{model.name}</h3>
-              <p className="text-sm text-gray-100 mb-1">
-                <span className="font-medium text-yellow-200">Framework:</span> {model.framework || "N/A"}
+
+              <h3 className="text-2xl font-semibold mb-2">{model.name}</h3>
+
+              <p className="text-sm mb-1">
+                <span className="font-semibold">Framework:</span>{" "}
+                {model.framework || "N/A"}
               </p>
-              <p className="text-sm text-gray-100 mb-4">
-                <span className="font-medium text-cyan-200">Use Case:</span> {model.useCase || "N/A"}
+
+              <p className="text-sm mb-4">
+                <span className="font-semibold">Use Case:</span>{" "}
+                {model.useCase || "N/A"}
               </p>
+
               <Link
                 to={`/models/${model._id}`}
-                className="px-6 py-2 mt-auto bg-white/20 hover:bg-white/30 text-white font-semibold rounded-lg border border-white/30 shadow-md hover:shadow-lg backdrop-blur-sm transition-all duration-300"
+                className="mt-auto text-center px-5 py-2 rounded-lg bg-indigo-500 hover:bg-indigo-600 text-white font-semibold transition"
               >
                 View Details
               </Link>
@@ -99,7 +100,7 @@ const AllModels = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-300 text-xl mt-10">No models found.</p>
+        <p className="text-center text-lg">No models found.</p>
       )}
     </div>
   );
